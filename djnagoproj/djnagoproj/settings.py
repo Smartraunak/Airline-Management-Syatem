@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-cz8v%h)&q6_g%fa*mvaod^5hv+5r_fnrk427rjel+ufo)$rsn2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api',
+    'rest_framework_simplejwt',
 
 ]
 
@@ -59,11 +60,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
- # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+# If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
-  'http://localhost:3000',
-  'http://10.145.215.210:3000'
+    'http://localhost:3000',
+    'http://10.145.144.210:3000'
 )
 CORS_ALLOW_HEADERS = ['*']
 
@@ -72,15 +73,15 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 
 ]
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS = ['*']
 
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 
 CSRF_TRUSTED_ORIGINS = [
-        'http://localhost:3000',
-    ]
+    'http://localhost:3000',
+]
 # CORS_ALLOW_HEADERS = [
 # 'accept',
 # 'accept-encoding',
@@ -124,6 +125,8 @@ DATABASES = {
     }
 }
 
+# AUTH_USER_MODEL = 'api.CustomUser'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -143,6 +146,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # default backend
+    'api.backends.CustomAuthBackend',  # custom backend for CustomUser model
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -160,7 +168,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
 
 
 # Default primary key field type
