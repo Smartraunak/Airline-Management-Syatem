@@ -1,9 +1,24 @@
 import React, { Component } from 'react'
 import './header.css'
 import logo from './assets/img/Air-India-logo.png'
+import axios from 'axios';
 //import { Link } from 'react-router-dom';
 
 class Header extends Component {
+
+  handleLogout = () => {
+    axios.post('http://127.0.0.1:8000/logout/')
+      .then(response => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        // Redirect the user to the login page
+        window.location.href = '/login';
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   state = {clicked: false};
   handleclick = () =>{
     this.setState({clicked:!this.state.clicked})
@@ -28,12 +43,12 @@ class Header extends Component {
             </a>
           </li>
           <li>
-            <a href="index">
+            <a href="SearchFlight">
               Book Flight
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href=" " onClick={this.handleLogout}>
               Logout
             </a>
           </li>
