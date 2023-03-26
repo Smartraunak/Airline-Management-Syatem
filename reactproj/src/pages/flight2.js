@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 import './flight.css'
 
-function FormPage() {
+function FormPage(props) {
     const [origin_name, setorigin_name] = useState('');
     const [dest_name, setdest_name] = useState('');
     const [date, setdate] = useState('');
@@ -11,7 +11,8 @@ function FormPage() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate(`/Book/?origin_name=${origin_name}&dest_name=${dest_name}&date=${date}`, { state:{origin_name:origin_name, dest_name:dest_name, date:date} });
+        props.onInputSubmit(origin_name, dest_name, date);
+        navigate("/Book");
         console.log(origin_name, dest_name);
       };
     return (

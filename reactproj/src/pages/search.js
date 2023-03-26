@@ -4,23 +4,18 @@ import './search.css';
 // FlightsPage.js
 
 function FlightsPage(props){
-    const { location } = props;
-    const { state } = location || {};
-    const origin_name = state?.origin_name;
-    const dest_name = state?.dest_name;
-    const date = state?.date;
     const [flights, setFlights] = useState([]);
     const [selectedClass, setSelectedClass] = useState('economy');
-    console.log(origin_name)
     useEffect(() => {
         const fetchFlights = async () => {
-            if (origin_name && dest_name && date) {
-                const response = await axios.get(`http://127.0.0.1:8000/flight/?origin_name=${origin_name}&dest_name=${dest_name}&date=${date}`);
+            console.log(props.origin_name)
+            if (props.origin_name && props.dest_name && props.date) {
+                const response = await axios.get(`http://127.0.0.1:8000/flight/?origin_name=${props.origin_name}&dest_name=${props.dest_name}&date=${props.date}`);
                 setFlights(response.data.flights);
             }
         };
         fetchFlights();
-    }, [origin_name, dest_name, date]);
+    }, [props.origin_name, props.dest_name, props.date]);
     const handleClassChange = (e) => {
         setSelectedClass(e.target.value);
     }
@@ -58,7 +53,7 @@ function FlightsPage(props){
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>S.No.</th>
                                                     <th>Flight ID</th>
                                                     <th>Departure City</th>
                                                     <th>Arrival City</th>
