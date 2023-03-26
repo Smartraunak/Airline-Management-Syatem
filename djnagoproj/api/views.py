@@ -132,28 +132,29 @@ class CustomLogoutView(APIView):
 
 
 class FlightView(APIView):
-
     def get_available_flights(self, request):
-        print(request)
         origin_name = request.GET.get('origin_name')
         dest_name = request.GET.get('dest_name')
         date = request.GET.get('date')
 
-        result = flight.objects.filter(
-            origin_name=origin_name, dest_name=dest_name, date=date)
-        serializers = FlightSerializer(result, many=True)
-        print("Get", result, serializers)
+        # filter flights based on origin, destination, and date
+        flights = flight.objects.filter(origin_name=origin_name, dest_name=dest_name, date=date)
 
+        # serialize the filtered flights
+        serializer = FlightSerializer(flights, many=True)
+
+        # create the response object and set the Access-Control headers
         response = Response({
             'status': 'success',
-            "data": "helo",
-            "students": serializers.data
-        }, status=200)
+            'flights': serializer.data
+        })
         response["Access-Control-Allow-Origin"] = "*"
         response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
         response["Access-Control-Max-Age"] = "1000"
         response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+
         return response
+
 
     def get(self, request, *args, **kwargs):
         result = flight.objects.all()
@@ -163,7 +164,7 @@ class FlightView(APIView):
         response = Response({
             'status': 'success',
             "data": "helo",
-            "students": serializers.data
+            "flights": serializers.data
         }, status=200)
         response["Access-Control-Allow-Origin"] = "*"
         response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
