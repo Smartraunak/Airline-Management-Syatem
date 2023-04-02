@@ -5,7 +5,7 @@ import './search.css';
 
 function FlightsPage(props){
     const [flights, setFlights] = useState([]);
-    const [selectedClass, setSelectedClass] = useState('economy');
+    const [selectedClass, setSelectedClass] = useState('Class');
     useEffect(() => {
         const fetchFlights = async () => {
             console.log(props.origin_name)

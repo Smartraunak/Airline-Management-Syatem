@@ -7,11 +7,12 @@ function FormPage(props) {
     const [dest_name, setdest_name] = useState('');
     const [date, setdate] = useState('');
     const [Class, setClass] = useState('');
+    const [people, setPeople] = useState(' ');
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onInputSubmit(origin_name, dest_name, date);
+        props.onInputSubmit(origin_name, dest_name, date,people);
         navigate("/Book");
         console.log(origin_name, dest_name);
       };
@@ -20,7 +21,7 @@ function FormPage(props) {
             <div className="background2">
             </div>
             <div className="form-bottom1" style={{ color: "white" }}>
-                <form  onSubmit={handleSubmit }className="flight-search-form">
+                <form  onSubmit={handleSubmit}className="flight-search-form">
                     <div className="form-top1">
                         <div className="form-top-left1">
                             <h3 style={{ color: "white" }}>Search Flight</h3>
@@ -55,7 +56,7 @@ function FormPage(props) {
                         </div>
                         <div className="form-group col-lg-4 ab">
                             <label htmlFor="people">No. of People</label>
-                            <input required type="number" min="1" max="10" placeholder="Number of People.." name="people" className="form-control" id="form-adults" />
+                            <input required type="number" min="1" max="10" placeholder="Number of People.." name="people" className="form-control" id="form-adults" value={people} onChange={(event)=> setPeople(event.target.value) }/>
                         </div>
                     </div>
                     <div style={{ textAlign: "center" }}>

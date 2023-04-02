@@ -18,7 +18,6 @@ class Header extends Component {
         console.log(error);
       });
   }
-
   state = {clicked: false};
   handleclick = () =>{
     this.setState({clicked:!this.state.clicked})
