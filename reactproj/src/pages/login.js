@@ -3,7 +3,7 @@ import axios from "axios";
 import { NavLink,useNavigate } from "react-router-dom";
 import './login.css';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,6 +18,7 @@ const LoginForm = () => {
       localStorage.setItem('refresh_token', JSON.stringify(response.data.refresh));
       // Redirect to dashboard or other page
       navigate('/home')
+      props.onInputSubmit1(email);
     } catch (error) {
       console.log(email,password)
       console.log(error.response.data)

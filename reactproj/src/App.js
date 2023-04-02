@@ -16,6 +16,8 @@ function App() {
   const [dest_name, setDest_name] = useState('');
   const [date, setDate] = useState('');
   const [people, setPeople] = useState('');
+  const [email,setEmail] = useState('');
+  
 
   function handleInputSubmit(origin_name, dest_name, date,people) {
     setOrigin_name(origin_name);
@@ -23,13 +25,16 @@ function App() {
     setDate(date)
     setPeople(people)
   }
+  function handleInputSubmit1(email) {
+    setEmail(email);
+  }
   return (
     <div className="App">
       <Header />
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Sign />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/login" element={<LoginForm onInputSubmit={handleInputSubmit1} />} />
           <Route path="/home" element={<Home />} />
           <Route path="/SearchFlight" element={<FormPage onInputSubmit={handleInputSubmit}/>} />
           {console.log(origin_name)}

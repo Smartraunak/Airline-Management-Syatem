@@ -7,7 +7,7 @@ function FormPage(props) {
     const [dest_name, setdest_name] = useState('');
     const [date, setdate] = useState('');
     const [Class, setClass] = useState('');
-    const [people, setPeople] = useState(' ');
+    const [people, setPeople] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
